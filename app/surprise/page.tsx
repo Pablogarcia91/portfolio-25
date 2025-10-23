@@ -195,7 +195,7 @@ export default function Surprise() {
         <div className="geometric-blob geometric-blob-4"></div>
       </div>
 
-      <div className="rounded-container m-4 md:m-8 my-8 relative z-10">
+      <div className="rounded-container glass-container m-4 md:m-8 my-8 relative z-10">
         {/* Header */}
         <header className="flex justify-between items-center mb-16 md:mb-20">
           <Link href="/" className="w-12 h-12 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors">

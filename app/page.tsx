@@ -67,7 +67,7 @@ export default function Home() {
       </div>
 
       {/* Main Container */}
-      <div className="rounded-container m-4 md:m-8 h-[calc(100vh-2rem)] md:h-[calc(100vh-4rem)] flex flex-col relative z-10">
+      <div className="rounded-container glass-container m-4 md:m-8 h-[calc(100vh-2rem)] md:h-[calc(100vh-4rem)] flex flex-col relative z-10">
         {/* Header */}
         <header className="flex justify-between items-center mb-12 md:mb-16 shrink-0">
           <div className="w-12 h-12 border border-border rounded-full flex items-center justify-center bg-card hover:bg-muted transition-colors">
@@ -177,8 +177,8 @@ export default function Home() {
               Linkedin
             </a>
             <span className="text-muted-foreground">/</span>
-            <a href="https://bsky.app/profile/sinanimodlucro.bsky.social" target="_blank" rel="noopener noreferrer" className="link-animated text-primary underline decoration-1 underline-offset-4 transition-all">
-              Bluesky
+            <a href="https://bento.me/pgarcia" target="_blank" rel="noopener noreferrer" className="link-animated text-primary underline decoration-1 underline-offset-4 transition-all">
+              Bento
             </a>
             <span className="text-muted-foreground">/</span>
             <a href="https://github.com/Pablogarcia91" target="_blank" rel="noopener noreferrer" className="link-animated text-primary underline decoration-1 underline-offset-4 transition-all">
