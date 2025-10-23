@@ -325,6 +325,21 @@ body {
   background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, rgba(0, 212, 255, 0.1) 40%, transparent 70%);
 }
 
+/* Construction banner styles */
+.construction-banner {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.construction-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(0, 0, 0, 0.3) 20px,
+    rgba(0, 0, 0, 0.3) 40px
+  );
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

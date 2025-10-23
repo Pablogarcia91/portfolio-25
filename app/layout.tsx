@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import CursorHalo from "@/components/CursorHalo";
+import ConstructionBanner from "@/components/ConstructionBanner";
 import Script from "next/script";
 
 const inter = Inter({
@@ -48,6 +49,7 @@ export default function RootLayout({
         className={`${inter.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <ConstructionBanner />
           <CursorHalo />
           {children}
         </ThemeProvider>
