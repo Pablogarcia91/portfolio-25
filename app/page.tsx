@@ -58,23 +58,30 @@ export default function Home() {
 
   return (
     <div className="h-screen bg-background overflow-hidden">
+      {/* Geometric Background */}
+      <div className="geometric-background">
+        <div className="geometric-blob geometric-blob-1"></div>
+        <div className="geometric-blob geometric-blob-2"></div>
+        <div className="geometric-blob geometric-blob-3"></div>
+        <div className="geometric-blob geometric-blob-4"></div>
+      </div>
+
       {/* Main Container */}
-      <div className="rounded-container m-4 md:m-8 h-[calc(100vh-2rem)] md:h-[calc(100vh-4rem)] flex flex-col">
+      <div className="rounded-container m-4 md:m-8 h-[calc(100vh-2rem)] md:h-[calc(100vh-4rem)] flex flex-col relative z-10">
         {/* Header */}
-        <header className="flex justify-between items-center mb-8 md:mb-12 shrink-0">
-          <div className="w-12 h-12 border-2 border-foreground rounded-full flex items-center justify-center">
-            <span className="text-2xl font-bold">P</span>
+        <header className="flex justify-between items-center mb-12 md:mb-16 shrink-0">
+          <div className="w-12 h-12 border border-border rounded-full flex items-center justify-center bg-card hover:bg-muted transition-colors">
+            <span className="text-xl font-semibold">P</span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 md:gap-8 text-sm font-medium uppercase tracking-wider">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <Link href="/resume" className="hover:opacity-60 transition-opacity">About</Link>
-            <a href="https://bento.me/pgarcia" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">Works</a>
-            <a href="mailto:hellopgarciadesign@org" className="hover:opacity-60 transition-opacity">Contact</a>
+            <Link href="/surprise" className="hover:opacity-60 transition-opacity">Surprise</Link>
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-10 h-10 rounded-full border-2 border-foreground flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
+                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
               >
                 {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
@@ -84,7 +91,7 @@ export default function Home() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 border-2 border-foreground rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
+            className="md:hidden w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -92,31 +99,22 @@ export default function Home() {
 
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-16 right-4 bg-card border-2 border-foreground rounded-2xl shadow-lg z-50 min-w-[200px]">
+          <div className="md:hidden absolute top-19 right-4 bg-background border border-border rounded-2xl shadow-lg z-50 min-w-[200px]">
             <nav className="flex flex-col p-2">
               <Link
                 href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide"
+                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
               >
                 About
               </Link>
-              <a
-                href="https://bento.me/pgarcia"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/surprise"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide"
+                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
               >
-                Works
-              </a>
-              <a
-                href="mailto:hellopgarciadesign@org"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide"
-              >
-                Contact
-              </a>
+                Surprise
+              </Link>
               {mounted && (
                 <>
                   <div className="border-t border-border my-2"></div>
@@ -125,7 +123,7 @@ export default function Home() {
                       setTheme(theme === "dark" ? "light" : "dark");
                       setMobileMenuOpen(false);
                     }}
-                    className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide flex items-center justify-between"
+                    className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium flex items-center justify-between"
                   >
                     <span>Theme</span>
                     {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -137,16 +135,17 @@ export default function Home() {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-12 overflow-hidden min-h-0">
+        <div className="flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 lg:gap-16 overflow-hidden min-h-0">
           {/* Left Side - Text */}
           <div className="w-full lg:flex-1 space-y-4 md:space-y-6 overflow-y-auto pr-0 lg:pr-8">
             <div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3 md:mb-4 lg:mb-6">
-                Hi I'm Pablo García
+              <h1 className="font-bold leading-tight mb-3 md:mb-4">
+                <span className="block text-xl sm:text-2xl md:text-3xl mb-2">Hello there 👋🏼</span>
+                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl">I'm Pablo García</span>
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-normal">
                 That guy who{" "}
-                <span className="typewriter-text">
+                <span className="typewriter-text italic">
                   {displayedText}
                   <span className="typewriter-cursor">|</span>
                 </span>
@@ -155,36 +154,40 @@ export default function Home() {
           </div>
 
           {/* Right Side - Image */}
-          <div className="w-full lg:w-auto shrink-0 flex items-center justify-center">
-            <div className="m-3 md:m-6 w-full max-w-[560px]">
-              <div className="relative w-full h-0 pb-[100%] rounded-[40px] overflow-hidden">
+          <div className="w-full lg:w-auto shrink-0 flex items-end justify-end lg:items-start lg:justify-end pt-0 lg:pt-8">
+            <div className="relative w-[140px] h-[140px] lg:w-[210px] lg:h-[210px]">
+              {mounted && (
                 <Image
-                  src="/img-final.png"
+                  src={theme === "dark" ? "/profile-pic-dark.png" : "/profile-pic-light.png"}
                   alt="Pablo García"
-                  fill
-                  className="object-cover object-center absolute inset-0"
+                  width={210}
+                  height={210}
+                  className="w-full h-full object-cover object-center rounded-3xl"
                   priority
                 />
-              </div>
+              )}
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <footer className="flex justify-center items-center pt-6 md:pt-8 border-t border-border mt-auto shrink-0">
-          <div className="flex gap-4 md:gap-6 text-sm">
-            <a href="https://www.linkedin.com/in/pablo-garcia-pedro/" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-60 transition-opacity">
+        <footer className="flex flex-col items-center md:flex-row md:justify-between md:items-center gap-4 md:gap-0 pt-8 md:pt-12 border-t border-border mt-auto shrink-0">
+          <div className="flex gap-4 md:gap-6 text-sm font-medium">
+            <a href="https://www.linkedin.com/in/pablo-garcia-pedro/" target="_blank" rel="noopener noreferrer" className="link-animated text-primary underline decoration-1 underline-offset-4 transition-all">
               Linkedin
             </a>
             <span className="text-muted-foreground">/</span>
-            <a href="https://bsky.app/profile/sinanimodlucro.bsky.social" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-60 transition-opacity">
+            <a href="https://bsky.app/profile/sinanimodlucro.bsky.social" target="_blank" rel="noopener noreferrer" className="link-animated text-primary underline decoration-1 underline-offset-4 transition-all">
               Bluesky
             </a>
             <span className="text-muted-foreground">/</span>
-            <a href="https://github.com/Pablogarcia91" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-60 transition-opacity">
+            <a href="https://github.com/Pablogarcia91" target="_blank" rel="noopener noreferrer" className="link-animated text-primary underline decoration-1 underline-offset-4 transition-all">
               Github
             </a>
           </div>
+          <a href="mailto:hellopgarciadesign@gmail.com" className="link-animated text-sm font-medium text-primary underline decoration-1 underline-offset-4 transition-all">
+            hellopgarciadesign@gmail.com
+          </a>
         </footer>
       </div>
     </div>

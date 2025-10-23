@@ -166,22 +166,29 @@ export default function Resume() {
 
   return (
     <div className="min-h-screen bg-background overflow-auto">
-      <div className="rounded-container m-4 md:m-8 my-8">
+      {/* Geometric Background */}
+      <div className="geometric-background">
+        <div className="geometric-blob geometric-blob-1"></div>
+        <div className="geometric-blob geometric-blob-2"></div>
+        <div className="geometric-blob geometric-blob-3"></div>
+        <div className="geometric-blob geometric-blob-4"></div>
+      </div>
+
+      <div className="rounded-container m-4 md:m-8 my-8 relative z-10">
         {/* Header */}
-        <header className="flex justify-between items-center mb-12">
-          <Link href="/" className="w-12 h-12 border-2 border-foreground rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+        <header className="flex justify-between items-center mb-16 md:mb-20">
+          <Link href="/" className="w-12 h-12 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 md:gap-8 text-sm font-medium uppercase tracking-wider">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <Link href="/resume" className="hover:opacity-60 transition-opacity">About</Link>
-            <a href="https://bento.me/pgarcia" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">Works</a>
-            <a href="mailto:hellopgarciadesign@org" className="hover:opacity-60 transition-opacity">Contact</a>
+            <Link href="/surprise" className="hover:opacity-60 transition-opacity">Surprise</Link>
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-10 h-10 rounded-full border-2 border-foreground flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
+                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
               >
                 {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
@@ -191,7 +198,7 @@ export default function Resume() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 border-2 border-foreground rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
+            className="md:hidden w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -199,38 +206,29 @@ export default function Resume() {
 
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-16 right-4 bg-card border-2 border-foreground rounded-2xl shadow-lg z-50 min-w-[200px]">
+          <div className="md:hidden absolute top-19 right-4 bg-background border border-border rounded-2xl shadow-lg z-50 min-w-[200px]">
             <nav className="flex flex-col p-2">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide"
+                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
               >
                 Home
               </Link>
               <Link
                 href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide"
+                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
               >
                 About
               </Link>
-              <a
-                href="https://bento.me/pgarcia"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/surprise"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide"
+                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
               >
-                Works
-              </a>
-              <a
-                href="mailto:hellopgarciadesign@org"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide"
-              >
-                Contact
-              </a>
+                Surprise
+              </Link>
               {mounted && (
                 <>
                   <div className="border-t border-border my-2"></div>
@@ -239,7 +237,7 @@ export default function Resume() {
                       setTheme(theme === "dark" ? "light" : "dark");
                       setMobileMenuOpen(false);
                     }}
-                    className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium uppercase tracking-wide flex items-center justify-between"
+                    className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium flex items-center justify-between"
                   >
                     <span>Theme</span>
                     {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -251,48 +249,50 @@ export default function Resume() {
         )}
 
         {/* Main Content */}
-        <div className="max-w-5xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">About</h1>
-          <p className="text-xl text-muted-foreground mb-8">my experience</p>
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">About</h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-16 md:mb-20 font-normal">my experience</p>
 
           {/* Tabs */}
-          <div className="flex gap-2 mb-8 border-b border-border">
-            <button
-              onClick={() => setActiveTab("resume")}
-              className={`px-6 py-3 font-semibold transition-colors ${
-                activeTab === "resume"
-                  ? "border-b-2 border-foreground text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Resume
-            </button>
-            <button
-              onClick={() => setActiveTab("studies")}
-              className={`px-6 py-3 font-semibold transition-colors ${
-                activeTab === "studies"
-                  ? "border-b-2 border-foreground text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Studies
-            </button>
-            <button
-              onClick={() => setActiveTab("languages")}
-              className={`px-6 py-3 font-semibold transition-colors ${
-                activeTab === "languages"
-                  ? "border-b-2 border-foreground text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Languages
-            </button>
+          <div className="overflow-x-auto -mx-4 md:mx-0 mb-12 md:mb-16">
+            <div className="flex gap-2 border-b border-border min-w-max px-4 md:px-0">
+              <button
+                onClick={() => setActiveTab("resume")}
+                className={`px-6 py-3 font-medium transition-colors whitespace-nowrap ${
+                  activeTab === "resume"
+                    ? "border-b-2 border-primary text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Resume
+              </button>
+              <button
+                onClick={() => setActiveTab("studies")}
+                className={`px-6 py-3 font-medium transition-colors whitespace-nowrap ${
+                  activeTab === "studies"
+                    ? "border-b-2 border-primary text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Studies
+              </button>
+              <button
+                onClick={() => setActiveTab("languages")}
+                className={`px-6 py-3 font-medium transition-colors whitespace-nowrap ${
+                  activeTab === "languages"
+                    ? "border-b-2 border-primary text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Languages
+              </button>
+            </div>
           </div>
 
           {/* Tab Content */}
           {activeTab === "resume" && (
-            <section className="mb-12">
-              <div className="space-y-10">
+            <section className="mb-16">
+              <div className="space-y-12 md:space-y-16">
                 {experiences.map((exp, index) => (
                   <div
                     key={index}
@@ -303,11 +303,11 @@ export default function Resume() {
                         : "opacity-0 translate-y-10"
                     }`}
                   >
-                    <h3 className="text-xl font-bold mb-1">{exp.title}</h3>
-                    <p className="text-muted-foreground mb-3">{exp.company} | {exp.period}</p>
-                    <ul className="list-disc list-inside space-y-1 text-card-foreground ml-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-2">{exp.title}</h3>
+                    <p className="text-muted-foreground mb-4 font-medium">{exp.company} | {exp.period}</p>
+                    <ul className="list-disc list-inside space-y-2 text-foreground ml-2 leading-relaxed">
                       {exp.tasks.map((task, taskIndex) => (
-                        <li key={taskIndex}>{task}</li>
+                        <li key={taskIndex} className="font-normal">{task}</li>
                       ))}
                     </ul>
                   </div>
@@ -317,58 +317,58 @@ export default function Resume() {
           )}
 
           {activeTab === "studies" && (
-            <section className="mb-12">
-              <div className="space-y-8">
-                <div className="border-l-2 border-foreground pl-6">
-                  <h3 className="text-xl font-bold mb-2">Master's Degree in Interaction Design and User Experience (UX)</h3>
-                  <p className="text-muted-foreground mb-2">UOC - Open University of Catalonia</p>
+            <section className="mb-16">
+              <div className="space-y-10 md:space-y-12">
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3">Master's Degree in Interaction Design and User Experience (UX)</h3>
+                  <p className="text-muted-foreground font-medium">UOC - Open University of Catalonia</p>
                 </div>
 
-                <div className="border-l-2 border-foreground pl-6">
-                  <h3 className="text-xl font-bold mb-2">Bachelor's Degree in Industrial Design and Product Development</h3>
-                  <p className="text-muted-foreground mb-2">Universitat Jaume I - Castelló de la Plana</p>
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3">Bachelor's Degree in Industrial Design and Product Development</h3>
+                  <p className="text-muted-foreground font-medium">Universitat Jaume I - Castelló de la Plana</p>
                 </div>
 
-                <div className="border-l-2 border-foreground pl-6">
-                  <h3 className="text-xl font-bold mb-2">Scientific Baccalaureate</h3>
-                  <p className="text-muted-foreground mb-2">I.E.S Vall d'Alba - Castelló de la Plana</p>
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3">Scientific Baccalaureate</h3>
+                  <p className="text-muted-foreground font-medium">I.E.S Vall d'Alba - Castelló de la Plana</p>
                 </div>
               </div>
             </section>
           )}
 
           {activeTab === "languages" && (
-            <section className="mb-12">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="border-2 border-foreground rounded-2xl p-6 hover:bg-muted transition-colors">
-                  <h3 className="text-2xl font-bold mb-2">Español</h3>
-                  <p className="text-muted-foreground">Native Level</p>
+            <section className="mb-16">
+              <div className="space-y-10 md:space-y-12">
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3">🇪🇸 Español</h3>
+                  <p className="text-muted-foreground font-medium">Nivel nativo</p>
                 </div>
 
-                <div className="border-2 border-foreground rounded-2xl p-6 hover:bg-muted transition-colors">
-                  <h3 className="text-2xl font-bold mb-2">Valencià / Català</h3>
-                  <p className="text-muted-foreground">Nivell Natiu</p>
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3">🍊 Valencià / Català</h3>
+                  <p className="text-muted-foreground font-medium">Nivell natiu</p>
                 </div>
 
-                <div className="border-2 border-foreground rounded-2xl p-6 hover:bg-muted transition-colors">
-                  <h3 className="text-2xl font-bold mb-2">English</h3>
-                  <p className="text-muted-foreground">Upper Intermediate Level (B2)</p>
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3">🇬🇧 English</h3>
+                  <p className="text-muted-foreground font-medium">Upper Intermediate Level (B2)</p>
                 </div>
 
-                <div className="border-2 border-foreground rounded-2xl p-6 hover:bg-muted transition-colors">
-                  <h3 className="text-2xl font-bold mb-2">Português</h3>
-                  <p className="text-muted-foreground">Nível Médio</p>
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3">🇵🇹 Português</h3>
+                  <p className="text-muted-foreground font-medium">Nível médio</p>
                 </div>
               </div>
             </section>
           )}
 
           {/* Contact */}
-          <section className="pt-8 border-t border-border">
-            <p className="text-lg font-semibold mb-4">Feel free to get in touch</p>
+          <section className="pt-12 md:pt-16 border-t border-border">
+            <p className="text-lg md:text-xl font-medium mb-4 md:mb-6">Feel free to get in touch</p>
             <a
               href="mailto:hellopgarciadesign@gmail.com"
-              className="text-xl text-primary hover:underline font-medium"
+              className="link-animated text-xl md:text-2xl text-primary underline decoration-1 underline-offset-4 transition-all"
             >
               hellopgarciadesign@gmail.com
             </a>
