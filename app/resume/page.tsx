@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeft, Moon, Sun, Menu, X } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
+import Navigation from "@/components/Navigation";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const experiences = [
   {
@@ -129,124 +128,12 @@ const experiences = [
 ];
 
 export default function Resume() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState("resume");
-  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (activeTab !== "resume") return;
-
-    setVisibleItems(new Set());
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = itemRefs.current.indexOf(entry.target as HTMLDivElement);
-          if (entry.isIntersecting && index !== -1) {
-            setVisibleItems((prev) => new Set([...prev, index]));
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
-    );
-
-    itemRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-background overflow-auto">
-      {/* Geometric Background */}
-      <div className="geometric-background">
-        <div className="geometric-blob geometric-blob-1"></div>
-        <div className="geometric-blob geometric-blob-2"></div>
-        <div className="geometric-blob geometric-blob-3"></div>
-        <div className="geometric-blob geometric-blob-4"></div>
-      </div>
-
       <div className="rounded-container glass-container m-4 md:m-8 my-8 relative z-10">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-16 md:mb-20">
-          <Link href="/" className="w-12 h-12 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors">
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <Link href="/resume" className="hover:opacity-60 transition-opacity">About</Link>
-            <Link href="/surprise" className="hover:opacity-60 transition-opacity">Surprise</Link>
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
-              >
-                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-            )}
-          </nav>
-
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </header>
-
-        {/* Mobile Menu Dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden absolute top-19 right-4 bg-background border border-border rounded-2xl shadow-lg z-50 min-w-[200px]">
-            <nav className="flex flex-col p-2">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                href="/resume"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
-              >
-                About
-              </Link>
-              <Link
-                href="/surprise"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
-              >
-                Surprise
-              </Link>
-              {mounted && (
-                <>
-                  <div className="border-t border-border my-2"></div>
-                  <button
-                    onClick={() => {
-                      setTheme(theme === "dark" ? "light" : "dark");
-                      setMobileMenuOpen(false);
-                    }}
-                    className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium flex items-center justify-between"
-                  >
-                    <span>Theme</span>
-                    {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                  </button>
-                </>
-              )}
-            </nav>
-          </div>
-        )}
+        <Navigation />
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto">
@@ -292,25 +179,22 @@ export default function Resume() {
           {/* Tab Content */}
           {activeTab === "resume" && (
             <section className="mb-16">
-              <div className="space-y-12 md:space-y-16">
+              <div className="space-y-10 md:space-y-12">
                 {experiences.map((exp, index) => (
-                  <div
-                    key={index}
-                    ref={(el) => { itemRefs.current[index] = el; }}
-                    className={`transition-all duration-700 ${
-                      visibleItems.has(index)
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
-                  >
-                    <h3 className="text-xl md:text-2xl font-bold mb-2">{exp.title}</h3>
-                    <p className="text-muted-foreground mb-4 font-medium">{exp.company} | {exp.period}</p>
-                    <ul className="list-disc list-inside space-y-2 text-foreground ml-2 leading-relaxed">
-                      {exp.tasks.map((task, taskIndex) => (
-                        <li key={taskIndex} className="font-normal">{task}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  <ScrollReveal key={index} delay={index * 100}>
+                    <div className="border-l-2 border-primary pl-6 py-2">
+                      <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-3">
+                        <h3 className="text-xl md:text-2xl font-bold">{exp.title}</h3>
+                        <p className="text-sm md:text-base text-muted-foreground font-medium">{exp.period}</p>
+                      </div>
+                      <p className="text-muted-foreground mb-4 font-medium">{exp.company}</p>
+                      <ul className="list-disc list-inside space-y-2 text-foreground leading-relaxed">
+                        {exp.tasks.map((task, taskIndex) => (
+                          <li key={taskIndex} className="font-normal">{task}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </ScrollReveal>
                 ))}
               </div>
             </section>
@@ -319,20 +203,26 @@ export default function Resume() {
           {activeTab === "studies" && (
             <section className="mb-16">
               <div className="space-y-10 md:space-y-12">
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3">Master's Degree in Interaction Design and User Experience (UX)</h3>
-                  <p className="text-muted-foreground font-medium">UOC - Open University of Catalonia</p>
-                </div>
+                <ScrollReveal delay={0}>
+                  <div className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">Master's Degree in Interaction Design and User Experience (UX)</h3>
+                    <p className="text-muted-foreground font-medium">UOC - Open University of Catalonia</p>
+                  </div>
+                </ScrollReveal>
 
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3">Bachelor's Degree in Industrial Design and Product Development</h3>
-                  <p className="text-muted-foreground font-medium">Universitat Jaume I - Castelló de la Plana</p>
-                </div>
+                <ScrollReveal delay={100}>
+                  <div className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">Bachelor's Degree in Industrial Design and Product Development</h3>
+                    <p className="text-muted-foreground font-medium">Universitat Jaume I - Castelló de la Plana</p>
+                  </div>
+                </ScrollReveal>
 
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3">Scientific Baccalaureate</h3>
-                  <p className="text-muted-foreground font-medium">I.E.S Vall d'Alba - Castelló de la Plana</p>
-                </div>
+                <ScrollReveal delay={200}>
+                  <div className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">Scientific Baccalaureate</h3>
+                    <p className="text-muted-foreground font-medium">I.E.S Vall d'Alba - Castelló de la Plana</p>
+                  </div>
+                </ScrollReveal>
               </div>
             </section>
           )}
@@ -340,25 +230,33 @@ export default function Resume() {
           {activeTab === "languages" && (
             <section className="mb-16">
               <div className="space-y-10 md:space-y-12">
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3">🇪🇸 Español</h3>
-                  <p className="text-muted-foreground font-medium">Nivel nativo</p>
-                </div>
+                <ScrollReveal delay={0}>
+                  <div className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">🇪🇸 Español</h3>
+                    <p className="text-muted-foreground font-medium">Nivel nativo</p>
+                  </div>
+                </ScrollReveal>
 
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3">🍊 Valencià / Català</h3>
-                  <p className="text-muted-foreground font-medium">Nivell natiu</p>
-                </div>
+                <ScrollReveal delay={100}>
+                  <div className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">🍊 Valencià / Català</h3>
+                    <p className="text-muted-foreground font-medium">Nivell natiu</p>
+                  </div>
+                </ScrollReveal>
 
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3">🇬🇧 English</h3>
-                  <p className="text-muted-foreground font-medium">Upper Intermediate Level (B2)</p>
-                </div>
+                <ScrollReveal delay={200}>
+                  <div className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">🇬🇧 English</h3>
+                    <p className="text-muted-foreground font-medium">Upper Intermediate Level (B2)</p>
+                  </div>
+                </ScrollReveal>
 
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3">🇵🇹 Português</h3>
-                  <p className="text-muted-foreground font-medium">Nível médio</p>
-                </div>
+                <ScrollReveal delay={300}>
+                  <div className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">🇵🇹 Português</h3>
+                    <p className="text-muted-foreground font-medium">Nível médio</p>
+                  </div>
+                </ScrollReveal>
               </div>
             </section>
           )}

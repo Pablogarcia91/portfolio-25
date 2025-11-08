@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeft, Moon, Sun, Menu, X, RefreshCw } from "lucide-react";
-import { useTheme } from "next-themes";
+import { RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
+import Navigation from "@/components/Navigation";
 
 const officeQuotes = [
   {
@@ -130,14 +129,10 @@ const officeQuotes = [
 ];
 
 export default function Surprise() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [currentQuote, setCurrentQuote] = useState(officeQuotes[0]);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     // Set random quote on mount
     const randomIndex = Math.floor(Math.random() * officeQuotes.length);
     setCurrentQuote(officeQuotes[randomIndex]);
@@ -187,87 +182,8 @@ export default function Surprise() {
 
   return (
     <div className="min-h-screen bg-background overflow-auto">
-      {/* Geometric Background */}
-      <div className="geometric-background">
-        <div className="geometric-blob geometric-blob-1"></div>
-        <div className="geometric-blob geometric-blob-2"></div>
-        <div className="geometric-blob geometric-blob-3"></div>
-        <div className="geometric-blob geometric-blob-4"></div>
-      </div>
-
       <div className="rounded-container glass-container m-4 md:m-8 my-8 relative z-10">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-16 md:mb-20">
-          <Link href="/" className="w-12 h-12 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors">
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <Link href="/resume" className="hover:opacity-60 transition-opacity">About</Link>
-            <Link href="/surprise" className="hover:opacity-60 transition-opacity">Surprise</Link>
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
-              >
-                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-            )}
-          </nav>
-
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </header>
-
-        {/* Mobile Menu Dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden absolute top-19 right-4 bg-background border border-border rounded-2xl shadow-lg z-50 min-w-[200px]">
-            <nav className="flex flex-col p-2">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                href="/resume"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
-              >
-                About
-              </Link>
-              <Link
-                href="/surprise"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium"
-              >
-                Surprise
-              </Link>
-              {mounted && (
-                <>
-                  <div className="border-t border-border my-2"></div>
-                  <button
-                    onClick={() => {
-                      setTheme(theme === "dark" ? "light" : "dark");
-                      setMobileMenuOpen(false);
-                    }}
-                    className="px-4 py-3 hover:bg-muted rounded-lg transition-colors text-sm font-medium flex items-center justify-between"
-                  >
-                    <span>Theme</span>
-                    {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                  </button>
-                </>
-              )}
-            </nav>
-          </div>
-        )}
+        <Navigation />
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto">

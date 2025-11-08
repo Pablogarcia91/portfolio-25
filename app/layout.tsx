@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import CursorHalo from "@/components/CursorHalo";
 import ConstructionBanner from "@/components/ConstructionBanner";
+import Analytics from "@/components/Analytics";
+import SmoothFollower from "@/components/SmoothFollower";
 import Script from "next/script";
 
 const inter = Inter({
@@ -46,11 +47,12 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${inter.variable} antialiased`}
+        className={`${inter.variable} antialiased animated-gradient-bg cursor-none`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <SmoothFollower />
+          <Analytics />
           <ConstructionBanner />
-          <CursorHalo />
           {children}
         </ThemeProvider>
       </body>
