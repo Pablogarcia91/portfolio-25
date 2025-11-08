@@ -6,6 +6,7 @@ import ConstructionBanner from "@/components/ConstructionBanner";
 import Analytics from "@/components/Analytics";
 import SmoothFollower from "@/components/SmoothFollower";
 import Script from "next/script";
+import { Suspense } from "react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -51,7 +52,9 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SmoothFollower />
-          <Analytics />
+          <Suspense fallback={null}>
+            <Analytics />
+          </Suspense>
           <ConstructionBanner />
           {children}
         </ThemeProvider>
