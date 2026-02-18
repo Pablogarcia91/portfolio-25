@@ -186,16 +186,9 @@ export default function Home() {
                       Check it soon
                     </span>
                   </div>
-                  <p className="text-[13px] leading-relaxed text-(--v3-fg)/45 mb-2">
+                  <p className="text-[13px] leading-relaxed text-(--v3-fg)/45">
                     {project.description}
                   </p>
-                  <div className="flex gap-2">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="text-[11px] text-(--v3-fg)/30">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
             ))}
