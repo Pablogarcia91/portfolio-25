@@ -59,19 +59,19 @@ const sideProjects = [
     title: 'Financial Dictionary',
     description: 'Learn and become familiar with financial terminologies.',
     url: 'https://finance-dictionary.vercel.app/',
-    image: '/side-projects/dictionary.png',
+    image: '/side-projects/financial-dictionary.png',
   },
   {
     title: 'BSV Flamingos',
-    description: 'Collect game statistics of my team and be open for all',
+    description: 'Collect game statistics of my team and be open for all.',
     url: 'https://bsv-flamingos.vercel.app/',
     image: '/side-projects/flamingos.png',
   },
   {
-    title: 'Habit Tracker',
-    description: 'Easy way to start a new healthy life habits.',
-    url: 'https://personal-progress-mate.lovable.app/',
-    image: '/side-projects/habits-app.png',
+    title: 'Learning Terminal',
+    description: 'Learn to use the terminal from scratch through interactive lessons.',
+    url: 'https://terminal-edu.com/',
+    image: '/side-projects/learning-terminal.png',
   },
 ];
 
@@ -149,7 +149,7 @@ export default function Home() {
             {projects.map((project, index) => (
               <div
                 key={project.slug}
-                className="group w-[280px] sm:w-[420px] shrink-0 snap-start rounded-xl bg-(--v3-elevated) p-2.5 pb-3.5 sm:p-3 sm:pb-4 transition-all duration-200 hover:bg-(--v3-elevated-hover) hover:shadow-lg hover:-translate-y-0.5"
+                className="w-[280px] sm:w-[420px] shrink-0 snap-start rounded-xl bg-(--v3-elevated) p-2.5 pb-3.5 sm:p-3 sm:pb-4"
               >
                 <div className="aspect-video rounded-lg mb-3 overflow-hidden">
                   <Image
@@ -164,11 +164,9 @@ export default function Home() {
                 </div>
                 <div className="px-1">
                   <div className="flex items-center justify-between mb-1.5">
-                    <h3 className="text-sm font-medium">
-                      {project.title}
-                    </h3>
+                    <h3 className="text-sm font-medium">{project.title}</h3>
                     <span className="text-[10px] font-medium uppercase tracking-wider text-(--v3-fg)/35 border border-(--v3-fg)/15 rounded-full px-2.5 py-0.5 shrink-0">
-                      Check it soon
+                      Soon
                     </span>
                   </div>
                   <p className="text-[13px] leading-relaxed text-(--v3-fg)/45">

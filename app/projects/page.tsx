@@ -16,7 +16,7 @@ const sideProjects = [
     title: 'Financial Dictionary',
     description: 'Learn and become familiar with financial terminologies.',
     url: 'https://finance-dictionary.vercel.app/',
-    image: '/side-projects/dictionary.png',
+    image: '/side-projects/financial-dictionary.png',
     year: '2024',
   },
   {
@@ -27,11 +27,11 @@ const sideProjects = [
     year: '2023',
   },
   {
-    title: 'Habit Tracker',
-    description: 'Easy way to start a new healthy life habits.',
-    url: 'https://personal-progress-mate.lovable.app/',
-    image: '/side-projects/habits-app.png',
-    year: '2023',
+    title: 'Learning Terminal',
+    description: 'Learn to use the terminal from scratch through interactive lessons.',
+    url: 'https://terminal-edu.com/',
+    image: '/side-projects/learning-terminal.png',
+    year: '2025',
   },
 ];
 
