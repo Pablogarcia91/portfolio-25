@@ -31,7 +31,8 @@ Olá! Este é o meu portfólio pessoal, onde partilho os projetos e soluções q
 - **Framework:** Next.js 16 + React 19
 - **Styling:** Tailwind CSS v4 + CSS Variables
 - **Font:** Space Grotesk
-- **Animations:** canvas-confetti
+- **Transitions:** [transitions.dev](https://transitions.dev/) — page transitions, text-swap, icon-swap
+- **Animations:** canvas-confetti, FlipText (custom scroll-triggered)
 - **Analytics:** Google Analytics (G-V28NP3XGZ8)
 - **Deploy:** Vercel → [pgarciadesign.org](https://pgarciadesign.org)
 
@@ -41,12 +42,14 @@ Olá! Este é o meu portfólio pessoal, onde partilho os projetos e soluções q
 app/
 ├── page.tsx          # Home — Selected Work, Experience, Side Projects, Contact
 ├── about/            # Full CV — Experience, Education, Languages
+├── projects/         # Side projects showcase
+├── contact/          # Contact page
 ├── easter-egg/       # The Office quotes generator 🎉
-├── work/[slug]/      # Case study detail (coming soon)
+├── work/[slug]/      # Case study detail pages
 └── layout.tsx        # Root layout + Google Analytics
 
 components/
-├── flip-text.tsx     # Letter-by-letter flip animation
+├── flip-text.tsx     # Letter-by-letter flip animation (scroll-triggered)
 └── google-analytics.tsx
 
 public/
@@ -56,11 +59,14 @@ public/
 
 ## ✨ Features
 
-- Dark / light mode with CSS variables (persisted in localStorage)
-- Horizontal scroll carousel for Selected Work
-- Responsive — mobile-first design
-- Easter egg: The Office random quote generator with confetti 🎊
-- FlipText animation on section headings
+- **Page transitions** — smooth fade + slide using CSS View Transitions API (`transitions.dev`)
+- **Text swap** — blur + opacity transition for the rotating bio text (`transitions.dev`)
+- **Dark / light mode** with CSS variables (persisted in localStorage)
+- **Horizontal scroll carousel** for Selected Work
+- **FlipText animation** on section headings (scroll-triggered, letter by letter)
+- **Easter egg** — The Office random quote generator with confetti 🎊
+- **Responsive** — mobile-first design
+- **Reduced motion** support via `prefers-reduced-motion`
 
 ---
 

@@ -4,34 +4,30 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { FlipText } from '@/components/flip-text';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const projects = [
   {
     title: 'Financial Dashboard',
     description: 'Crafted the digital infrastructure for an alternative investment platform, unifying General Partners and Limited Partners under a seamless operational ecosystem',
-    tags: ['Product Design', '2025'],
     slug: 'Investments-dashboard',
     image: '/selected-work/Vega.png',
   },
   {
     title: 'Energy storage',
     description: 'Engineered the battery management interface for an electric facility, optimizing energy storage operations and maximizing plant efficiency',
-    tags: ['Product Design', '2024'],
     slug: 'energy-platform',
     image: '/selected-work/Elmeunebot.png',
   },
-  
   {
     title: 'Creditas Auto',
     description: 'Designed the user experience for a second-hand car marketplace, streamlining the buying and selling process with speed and simplicity',
-    tags: ['Product Design', '2023'],
     slug: 'cars-marketplace',
     image: '/selected-work/Creditas.png',
   },
   {
     title: 'Lucera Energía',
     description: 'Designed the home energy dashboard for a consumption platform, empowering users to monitor, save, and optimize their household energy usage.',
-    tags: ['Product Design', '2021'],
     slug: 'core-platform',
     image: '/selected-work/Lucera.png',
   },
@@ -82,22 +78,6 @@ const sideProjects = [
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const stored = localStorage.getItem('theme');
-    if (stored === 'dark') {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem('theme', next ? 'dark' : 'light');
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -115,22 +95,17 @@ export default function Home() {
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-(--v3-bg)/90 backdrop-blur-sm">
         <div className="max-w-2xl mx-auto px-6 md:px-8 py-4 flex justify-between items-center">
-          <Link href="/" className="text-sm font-medium hover:opacity-50 transition-opacity">
+          <Link href="/" className="text-sm font-medium hover:opacity-50 transition-opacity focus-visible:opacity-100 focus-visible:outline-none">
             pgarciadesign
           </Link>
           <div className="flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              className="text-[13px] text-inherit opacity-50 hover:opacity-100 transition-opacity"
-            >
-              Turns light {isDark ? 'on' : 'off'}
-            </button>
+            <ThemeToggle />
             <Link
               href="/easter-egg"
-              className="opacity-50 hover:opacity-100 transition-opacity"
+              className="opacity-50 hover:opacity-100 transition-opacity focus-visible:opacity-100 focus-visible:outline-none"
               aria-label="Easter egg"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
               </svg>
             </Link>
@@ -142,16 +117,18 @@ export default function Home() {
       <div className="max-w-2xl mx-auto px-6 md:px-8 pt-24 sm:pt-28">
         <section className="mb-14 sm:mb-24">
           <p className="text-[13px] text-(--v3-fg)/35 mb-1">Hello, I&apos;m</p>
-          <h1 className="text-3xl font-medium mb-2">
+          <h1 className="text-3xl font-medium mb-2 text-wrap-balance">
             Pablo García
           </h1>
           <p className="text-[13px] sm:text-[15px] leading-relaxed text-(--v3-fg)/60">
             Fun guy, Senior Product Designer with +7 years experience and {rotatingTexts[currentIndex].article}{' '}
             <span
-              className="inline-block transition-all duration-300 text-(--v3-fg)/40"
+              className="inline-block text-(--v3-fg)/40"
               style={{
                 opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateY(0)' : 'translateY(4px)',
+                filter: isVisible ? 'blur(0)' : 'blur(4px)',
+                transform: isVisible ? 'translateY(0)' : 'translateY(-4px)',
+                transition: 'opacity 250ms ease, filter 250ms ease, transform 250ms ease',
               }}
             >
               {rotatingTexts[currentIndex].text}
@@ -169,13 +146,21 @@ export default function Home() {
         </div>
         <div className="overflow-x-auto scrollbar-hide carousel-centered snap-x">
           <div className="flex gap-4 sm:gap-6">
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <div
                 key={project.slug}
                 className="group w-[280px] sm:w-[420px] shrink-0 snap-start rounded-xl bg-(--v3-elevated) p-2.5 pb-3.5 sm:p-3 sm:pb-4 transition-all duration-200 hover:bg-(--v3-elevated-hover) hover:shadow-lg hover:-translate-y-0.5"
               >
                 <div className="aspect-video rounded-lg mb-3 overflow-hidden">
-                  <Image src={project.image} alt={project.title} width={420} height={236} className="w-full h-full object-cover" />
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={420}
+                    height={236}
+                    sizes="(max-width: 640px) 280px, 420px"
+                    className="w-full h-full object-cover"
+                    priority={index === 0}
+                  />
                 </div>
                 <div className="px-1">
                   <div className="flex items-center justify-between mb-1.5">
@@ -220,7 +205,7 @@ export default function Home() {
 
           <Link
             href="/about"
-            className="inline-block mt-8 text-[13px] text-(--v3-fg)/40 hover:text-(--v3-fg) transition-colors"
+            className="inline-block mt-8 text-[13px] text-(--v3-fg)/40 hover:text-(--v3-fg) transition-colors focus-visible:text-(--v3-fg) focus-visible:outline-none"
           >
             See more &rarr;
           </Link>
@@ -239,16 +224,23 @@ export default function Home() {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 p-3 -mx-3 rounded-lg hover:bg-(--v3-elevated) transition-colors"
+                className="group flex items-center gap-4 p-3 -mx-3 rounded-lg hover:bg-(--v3-elevated) transition-colors focus-visible:bg-(--v3-elevated) focus-visible:outline-none"
               >
                 <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-md shrink-0 overflow-hidden">
-                  <Image src={project.image} alt={project.title} width={80} height={80} className="w-full h-full object-cover" />
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={80}
+                    height={80}
+                    sizes="(max-width: 640px) 56px, 80px"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium group-hover:opacity-60 transition-opacity">{project.title}</p>
                   <p className="text-[13px] text-(--v3-fg)/45 sm:truncate">{project.description}</p>
                 </div>
-                <svg className="w-4 h-4 text-(--v3-fg)/30 group-hover:text-(--v3-fg) transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-(--v3-fg)/30 group-hover:text-(--v3-fg) transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L17 7M17 7H7M17 7v10" />
                 </svg>
               </a>
@@ -265,7 +257,7 @@ export default function Home() {
           <div className="space-y-2 text-sm">
             <a
               href="mailto:hellopgarciadesign@gmail.com"
-              className="block text-(--v3-fg)/60 hover:text-(--v3-fg) transition-colors"
+              className="block text-(--v3-fg)/60 hover:text-(--v3-fg) transition-colors focus-visible:text-(--v3-fg) focus-visible:outline-none"
             >
               hellopgarciadesign@gmail.com
             </a>
@@ -273,7 +265,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/pablo-garcia-pedro/"
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-(--v3-fg)/60 hover:text-(--v3-fg) transition-colors"
+              className="block text-(--v3-fg)/60 hover:text-(--v3-fg) transition-colors focus-visible:text-(--v3-fg) focus-visible:outline-none"
             >
               LinkedIn
             </a>

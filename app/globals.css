@@ -6,22 +6,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-poppins);
-  --font-mono: var(--font-ibm-plex-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
+  --font-sans: var(--font-space-grotesk);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -45,6 +30,7 @@
 }
 
 :root {
+  color-scheme: light;
   --v3-fg: #111;
   --v3-bg: #fafafa;
   --v3-elevated: #eee;
@@ -68,22 +54,10 @@
   --border: oklch(0.923 0.003 48.717);
   --input: oklch(0.923 0.003 48.717);
   --ring: oklch(0.709 0.01 56.259);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0.001 106.423);
-  --sidebar-foreground: oklch(0.147 0.004 49.25);
-  --sidebar-primary: oklch(0.216 0.006 56.043);
-  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch(0.97 0.001 106.424);
-  --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
-  --sidebar-border: oklch(0.923 0.003 48.717);
-  --sidebar-ring: oklch(0.709 0.01 56.259);
 }
 
 .dark {
+  color-scheme: dark;
   --background: oklch(0.147 0.004 49.25);
   --foreground: oklch(0.985 0.001 106.423);
   --card: oklch(0.216 0.006 56.043);
@@ -102,19 +76,6 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.553 0.013 58.071);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.216 0.006 56.043);
-  --sidebar-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch(0.268 0.007 34.298);
-  --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.553 0.013 58.071);
 }
 
 html.dark {
@@ -132,6 +93,10 @@ html.dark {
     background-color: var(--v3-bg);
     color: var(--v3-fg);
     transition: background-color 0.3s ease, color 0.3s ease;
+    touch-action: manipulation;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
   }
 }
 
@@ -180,4 +145,80 @@ html.dark {
   opacity: 0;
   transform-origin: bottom center;
   backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-char {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* =============================================
+   transitions.dev — essential web transitions
+   ============================================= */
+
+/* Page Transition */
+@view-transition {
+  navigation: auto;
+}
+
+@keyframes t-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes t-page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-new(root) {
+  animation: 280ms cubic-bezier(0.22, 1, 0.36, 1) both t-page-in;
+}
+
+::view-transition-old(root) {
+  animation: 180ms ease-in both t-page-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root),
+  ::view-transition-old(root) {
+    animation: none;
+  }
+}
+
+/* Icon Swap */
+@keyframes t-icon-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(0.8);
+  }
+}
+
+@keyframes t-icon-out {
+  to {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(0.8);
+  }
+}
+
+.t-icon-in {
+  animation: 200ms ease-out both t-icon-in;
+}
+
+.t-icon-out {
+  animation: 150ms ease-in both t-icon-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-icon-in,
+  .t-icon-out {
+    animation: none;
+  }
 }

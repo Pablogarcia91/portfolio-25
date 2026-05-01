@@ -11,8 +11,11 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Pablo García - Product Designer",
-  description: "Digital Product Designer portfolio showcasing innovative design solutions and creative projects.",
+  title: {
+    default: "Pablo García — Product Designer",
+    template: "%s | Pablo García",
+  },
+  description: "Senior Product Designer with +7 years of experience building digital products.",
 };
 
 export default function RootLayout({
@@ -22,10 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
-      <body
-        className={`${spaceGrotesk.variable} antialiased`}
-        style={{ fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif' }}
-      >
+      <head>
+        {/* Prevents dark mode flash before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark')})()`,
+          }}
+        />
+      </head>
+      <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
         <GoogleAnalytics measurementId="G-V28NP3XGZ8" />
         {children}
       </body>
