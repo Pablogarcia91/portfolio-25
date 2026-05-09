@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     default: "Pablo García — Product Designer",
     template: "%s | Pablo García",
   },
-  description: "Senior Product Designer with +7 years of experience building digital products.",
+  description: "Product Designer based in València 🍊 I find the gap between how systems work and how people actually think — then close it",
 };
 
 export default function RootLayout({
