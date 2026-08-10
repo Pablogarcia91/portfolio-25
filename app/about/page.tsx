@@ -9,55 +9,55 @@ const experience = [
     period: '2024 — Current',
     role: 'Senior Product Designer',
     company: 'Vega Investments / UK 🇬🇧',
-    description: 'Leading design initiatives for core product features, working with cross-functional teams to deliver user-centered solutions.',
+    description: 'Working across different workstreams depending on the trade phase, blending design engineering with vibe coding. Building out a VUI design system and using AI-driven prototyping to move faster from concept to functional flow.',
   },
   {
     period: '2024 — Current',
     role: 'Associate Professor',
     company: 'IEM Business School',
-    description: 'Teaching product design and user experience principles to undergraduate and graduate students.',
+    description: 'Teaching Fundamentals of Interface Design II, focused on building components with interactive variants and practical prototyping skills. Guiding students on usability, content hierarchy, and UI best practices.',
   },
   {
     period: '2023 — 2024',
     role: 'Product Designer',
     company: 'elmeunebot',
-    description: 'Designed and shipped multiple product features, conducted user research, and collaborated with engineering teams.',
+    description: 'Owned product strategy while acting as the connection point between stakeholders and clients. Designed navigation flows and interactions to bring new features to life.',
   },
   {
     period: '2023 — 2023',
     role: 'Senior Product Designer',
     company: 'Clidrive',
-    description: 'Created wireframes, prototypes, and high-fidelity designs for web and mobile applications.',
+    description: 'Shaped product strategy and business vision through continuous discovery with Product and Engineering teams. Designed navigation flows, interactions, and high-fidelity prototypes.',
   },
   {
     period: '2021 — 2023',
     role: 'Product Designer',
     company: 'Creditas / BRA 🇧🇷',
-    description: 'Created wireframes, prototypes, and high-fidelity designs for web and mobile applications.',
+    description: 'Led research and continuous discovery alongside Product and Engineering teams across Valencia and São Paulo. Designed navigation flows and prototypes, validated them with real users, and tracked results against key metrics.',
   },
   {
     period: '2019 — 2021',
     role: 'Product Designer',
     company: 'Lucera Energía',
-    description: 'Created wireframes, prototypes, and high-fidelity designs for web and mobile applications.',
+    description: 'Designed and built the Neon design system alongside landing pages, web pieces, and the Lucera App. Provided ongoing design support for the Energy GO and Más Móvil energía products.',
   },
   {
     period: '2018 — 2019',
     role: 'Display Designer',
     company: 'SCPF',
-    description: 'Created wireframes, prototypes, and high-fidelity designs for web and mobile applications.',
+    description: 'Designed digital pieces and laid out newsletters for clients including BMW, Danone, and Selenta Group. Built dynamic, CSS-driven banners for multiple campaigns.',
   },
   {
     period: '2017 — 2018',
     role: 'Visual web designer',
     company: 'Flashback group',
-    description: 'Created wireframes, prototypes, and high-fidelity designs for web and mobile applications.',
+    description: 'Handled graphic design across on- and offline formats, from advertising pieces to online campaigns. Designed, laid out, and built web pages with HTML5, CSS3, WordPress, and PHP, plus branding and web support.',
   },
   {
     period: '2015 — 2017',
     role: 'Visual web designer',
     company: 'Cuatroochenta',
-    description: 'Created wireframes, prototypes, and high-fidelity designs for web and mobile applications.',
+    description: 'Designed graphic pieces for Google Ads and social media campaigns, plus web components for client sites. Built and laid out web pages with HTML5, CSS3, WordPress, and PHP.',
   },
 ];
 
@@ -103,7 +103,7 @@ export default function About() {
         {/* Intro */}
         <section className="mb-10 sm:mb-16">
           <h1 className="text-xl font-medium mb-4"><FlipText>About</FlipText></h1>
-          <p className="text-[14px] sm:text-[15px] leading-relaxed text-(--v3-fg)/60"> Based in València 🥘🍊. I love finding and developing possible solutions to different problems to make everyone's life a little bit easier. Understand how to translate the needs of the user to digital products.</p>
+          <p className="text-[14px] sm:text-[15px] leading-relaxed text-(--v3-fg)/60"> Based in València 🥘🍊. I love finding and developing possible solutions to different problems to make everyone&apos;s life a little bit easier. Understand how to translate the needs of the user to digital products.</p>
         </section>
 
         {/* Bio */}
